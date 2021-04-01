@@ -9,10 +9,9 @@
         \/_____/\/__/ `/___/> \/___L\ \/_/\/__/\/_/\/_/\/_/  \/_/  \/_/\/_/\/____/ \/___/  \/____/\/___/   \/__/
                         /\___/ /\____/                                                                         
                         \/__/  \_/__/               http://stygianthebest.github.io 
-														Converted to TrinityCore
     
     #############################################################################################################
     
      Modules, Scripts, and other resources for use with TrinityCore and the World of Warcraft v3.3.5a game client
-    
+     Converted to latest TrinityCore 3.3.5a WotLK
     #############################################################################################################

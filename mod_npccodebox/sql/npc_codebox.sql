@@ -5,8 +5,6 @@ USE world;
 -- ######################################################--
 SET FOREIGN_KEY_CHECKS=0;
 
-INSERT INTO `creature_template` VALUES ('190000', '0', '0', '0', '0', '0', '16804', '0', '0', '0', 'Retdream', 'Keeper of Codes', 'Buy', '0', '80', '80', '0', '35', '1', '1', '1.14286', '1', '0', '0', '0', '0', '1', '1', '1', '2', '0', '0', '0', '7', '138936390', '0', '0', '0', '0', '0', '0', '0', 'SmartAI', '0', '1', '1', '1', '1', '1', '1', '0', '0', '1', '0', '0', '2', 'codebox_npc', '0');
-
 -- ----------------------------
 -- Table structure for lootcode_items
 -- ----------------------------
@@ -44,3 +42,35 @@ CREATE TABLE `lootcode_player` (
   `redeemed` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- ######################################################--
+--	CODEBOX - 190000
+-- ######################################################--
+SET
+@Entry 		:= 190000,
+@Model 		:= 16804, -- Elven Jeweler
+@Name 		:= "Retdream",
+@Title 		:= "Keeper of Codes",
+@Icon 		:= "Buy",
+@GossipMenu := 0,
+@MinLevel 	:= 80,
+@MaxLevel 	:= 80,
+@Faction 	:= 35,
+@NPCFlag 	:= 1,
+@Scale		:= 1.0,
+@Rank		:= 0,
+@Type 		:= 7,
+@TypeFlags 	:= 138936390,
+@FlagsExtra := 2,
+@AIName		:= "SmartAI",
+@Script 	:= "codebox_npc";
+
+-- NPC
+DELETE FROM creature_template WHERE entry = @Entry;
+INSERT INTO creature_template (entry, modelid1, name, subname, IconName, gossip_menu_id, minlevel, maxlevel, faction, npcflag, speed_walk, speed_run, scale, rank, unit_class, unit_flags, type, type_flags, RegenHealth, flags_extra, AiName, ScriptName) VALUES
+(@Entry, @Model, @Name, @Title, @Icon, @GossipMenu, @MinLevel, @MaxLevel, @Faction, @NPCFlag, 1, 1.14286, @Scale, @Rank, 1, 2, @Type, @TypeFlags, 1, @FlagsExtra, @AIName, @Script);
+
+-- NPC Text
+DELETE FROM `npc_text` WHERE `ID`=@Entry;
+INSERT INTO `npc_text` (`ID`, `text0_0`) VALUES (@Entry, 'Greetings $N. Do you have a loot code to redeem?');

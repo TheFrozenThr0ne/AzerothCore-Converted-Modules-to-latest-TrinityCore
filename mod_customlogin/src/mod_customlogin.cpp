@@ -4,7 +4,7 @@
 ####
 #### Converted to latest TrinityCore [3.3.5a] (https://github.com/TrinityCore/TrinityCore/blob/3.3.5/)
 #### By
-#### TheFrozenThr0ne
+#### TheFrozenThr0ne & mindsear
 #### https://GamersCentral.de (https://github.com/MaDmaX1337/)
 ------------------------------------------------------------------------------------------------------------------
 ### Description ###
@@ -486,13 +486,13 @@ public:
                 {
                     if (firstLogin) {
                         std::ostringstream ss;
-                        ss << "[|cff2897FFAlliance|cffFFFFFF]: |cff3ADF00Please welcome |cffFFFFFF " << player->GetName() << "|cffFFFFFF to our server!|r";
+                        ss << "|cffFFFFFF[|cff2897FFAlliance|cffFFFFFF]: |cff3ADF00Please welcome |cffFFFFFF" << player->GetName() << "|cffFFFFFF to our server!|r";
                         sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
                     }
                     else
                     {
                         std::ostringstream ss;
-                        ss << "[|cff2897FFAlliance|cffFFFFFF]: |cff3ADF00Glade to see you back |cffFFFFFF " << player->GetName() << "!|r";
+                        ss << "|cffFFFFFF[|cff2897FFAlliance|cffFFFFFF]: |cff3ADF00Glade to see you back |cffFFFFFF" << player->GetName() << "!|r";
                         sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
                     }
                 }
@@ -500,13 +500,13 @@ public:
                 {
                     if (firstLogin) {
                         std::ostringstream ss;
-                        ss << "[|cffFF0000Horde|cffFFFFFF]: |cff3ADF00Please welcome |cffFFFFFF " << player->GetName() << "|cffFFFFFF to our server!|r";
+                        ss << "|cffFFFFFF[|cffFF0000Horde|cffFFFFFF]: |cff3ADF00Please welcome |cffFFFFFF" << player->GetName() << "|cffFFFFFF to our server!|r";
                         sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
                     }
                     else
                     {
                         std::ostringstream ss;
-                        ss << "[|cffFF0000Horde|cffFFFFFF]: |cff3ADF00Glade to see you back |cffFFFFFF " << player->GetName() << "!|r";
+                        ss << "|cffFFFFFF[|cffFF0000Horde|cffFFFFFF]: |cff3ADF00Glade to see you back |cffFFFFFF" << player->GetName() << "!|r";
                         sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
                     }
                 }
@@ -525,13 +525,13 @@ public:
                 if (player->GetTeamId() == TEAM_ALLIANCE)
                 {
                     std::ostringstream ss;
-                    ss << "[|cff2897FF Alliance |cffFFFFFF]|cffFFFFFF " << player->GetName() << "|cffFFFFFF has left the game.";
+                    ss << "|cffFFFFFF[|cff2897FF Alliance |cffFFFFFF]|cffFFFFFF" << player->GetName() << "|cffFFFFFF has left the game.";
                     sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
                 }
                 else
                 {
                     std::ostringstream ss;
-                    ss << "[|cffFF0000 Horde |cffFFFFFF]|cffFFFFFF " << player->GetName() << "|cffFFFFFF has left the game.";
+                    ss << "|cffFFFFFF[|cffFF0000 Horde |cffFFFFFF]|cffFFFFFF" << player->GetName() << "|cffFFFFFF has left the game.";
                     sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
                 }
             }

@@ -6,7 +6,7 @@
 ####
 #### Converted to latest TrinityCore [3.3.5a] (https://github.com/TrinityCore/TrinityCore/blob/3.3.5/)
 #### By
-#### TheFrozenThr0ne & mindsear
+#### TheFrozenThr0ne
 #### https://GamersCentral.de (https://github.com/MaDmaX1337/)
 ------------------------------------------------------------------------------------------------------------------
 

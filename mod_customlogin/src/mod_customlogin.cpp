@@ -4,7 +4,7 @@
 ####
 #### Converted to latest TrinityCore [3.3.5a] (https://github.com/TrinityCore/TrinityCore/blob/3.3.5/)
 #### By
-#### TheFrozenThr0ne & mindsear
+#### TheFrozenThr0ne
 #### https://GamersCentral.de (https://github.com/MaDmaX1337/)
 ------------------------------------------------------------------------------------------------------------------
 ### Description ###
@@ -472,10 +472,12 @@ public:
         // If enabled..
         if (sConfigMgr->GetBoolDefault("CustomLogin.Enable", true))
         {
-            // Announce Module
-            if (sConfigMgr->GetBoolDefault("CustomLogin.Announce", true))
-            {
-                ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00CustomLogin |rmodule.");
+            if (firstLogin) {
+                // Announce Module
+                if (sConfigMgr->GetBoolDefault("CustomLogin.Announce", true))
+                {
+                    ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00CustomLogin |rmodule.");
+                }
             }
 
             // If enabled..

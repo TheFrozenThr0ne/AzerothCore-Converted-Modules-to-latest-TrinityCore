@@ -2,6 +2,7 @@
 # Gambler NPC
 _This module was created for [StygianCore](https://rebrand.ly/stygiancoreproject). A World of Warcraft 3.3.5a Solo/LAN repack by StygianTheBest | [GitHub](https://rebrand.ly/stygiangithub) | [Website](https://rebrand.ly/stygianthebest))_
 ### Description
+### Description
 ####
 #### Converted to latest TrinityCore [3.3.5a] (https://github.com/TrinityCore/TrinityCore/blob/3.3.5/)
 #### By
@@ -139,12 +140,15 @@ class GamblerAnnounce : public PlayerScript
 public:
     GamblerAnnounce() : PlayerScript("GamblerAnnounce") {}
 
-    void OnLogin(Player* player, bool /*firstLogin*/)
+    void OnLogin(Player* player, bool firstLogin)
     {
         // Announce Module
-        if (GamblerNPCAnnounce)
+        if (firstLogin)
         {
-            ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00GamblerNPC |rmodule.");
+            if (GamblerNPCAnnounce)
+            {
+                ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00GamblerNPC |rmodule.");
+            }
         }
     }
 };

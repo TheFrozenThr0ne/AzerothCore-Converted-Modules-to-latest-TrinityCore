@@ -1,5 +1,5 @@
 /*
-# Custom Login Modifications #
+# Congrats On Level #
 #### A module for AzerothCore by [StygianTheBest](https://github.com/StygianTheBest/AzerothCore-Content/tree/master/Modules)
 ####
 #### Converted to latest TrinityCore [3.3.5a] (https://github.com/TrinityCore/TrinityCore/blob/3.3.5/)
@@ -71,13 +71,15 @@ public:
     CongratsOnLevel() : PlayerScript("CongratsOnLevel") { }
 
     // Announce Module
-    void OnLogin(Player* player, bool /*firstLogin*/)
+    void OnLogin(Player* player, bool firstLogin)
     {
         if (sConfigMgr->GetBoolDefault("Congrats.Enable", true))
         {
-            if (sConfigMgr->GetBoolDefault("Congrats.Announce", true))
-            {
-                ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00CongratsOnLevel |rmodule.");
+            if (firstLogin) {
+                if (sConfigMgr->GetBoolDefault("Congrats.Announce", true))
+                {
+                    ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00CongratsOnLevel |rmodule.");
+                }
             }
         }
     }

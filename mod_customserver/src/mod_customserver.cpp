@@ -1,5 +1,5 @@
 /*
-# Custom Login Modifications #
+# Custom Server Modifications #
 #### A module for AzerothCore by [StygianTheBest](https://github.com/StygianTheBest/AzerothCore-Content/tree/master/Modules)
 ####
 #### Converted to latest TrinityCore [3.3.5a] (https://github.com/TrinityCore/TrinityCore/blob/3.3.5/)
@@ -57,12 +57,14 @@ public:
 
     CustomServer() : PlayerScript("CustomServer") { }
 
-    void OnLogin(Player* player, bool /*firstLogin*/)
+    void OnLogin(Player* player, bool firstLogin)
     {
-        // Announce Module
-        if (sConfigMgr->GetBoolDefault("CustomServer.Announce", true))
-        {
-            ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00CustomServer |rmodule.");
+        if (firstLogin) {
+            // Announce Module
+            if (sConfigMgr->GetBoolDefault("CustomServer.Announce", true))
+            {
+                ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00CustomServer |rmodule.");
+            }
         }
     }
 

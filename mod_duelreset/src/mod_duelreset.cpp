@@ -5,7 +5,7 @@
 
 # Converted to latest TrinityCore [3.3.5a] (https://github.com/TrinityCore/TrinityCore/blob/3.3.5/)
 - By
-- TheFrozenThr0ne & mindsear
+- TheFrozenThr0ne
 - https://GamersCentral.de (https://github.com/MaDmaX1337/)
 
 ---
@@ -41,11 +41,13 @@ public:
     DuelResetScript() : PlayerScript("DuelResetScript") { }
 
     // Announce Module (v2017.08.01)
-    void OnLogin(Player* player, bool /*firstLogin*/)
+    void OnLogin(Player* player, bool firstLogin)
     {
-        if (sConfigMgr->GetBoolDefault("DuelReset.Announce", true))
-        {
-            ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00DuelReset |rmodule.");
+        if (firstLogin) {
+            if (sConfigMgr->GetBoolDefault("DuelReset.Announce", true))
+            {
+                ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00DuelReset |rmodule.");
+            }
         }
     }
 

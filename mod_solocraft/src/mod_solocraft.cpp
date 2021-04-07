@@ -93,13 +93,16 @@ namespace {
         }
 
         // Announce Module
-        void OnLogin(Player *player, bool /*firstLogin*/)
+        void OnLogin(Player* player, bool firstLogin)
         {
             if (sConfigMgr->GetBoolDefault("Solocraft.Enable", true))
             {
-                if (sConfigMgr->GetBoolDefault("Solocraft.Announce", true))
+                if (firstLogin)
                 {
-                    ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00SoloCraft |rmodule.");
+                    if (sConfigMgr->GetBoolDefault("Solocraft.Announce", true))
+                    {
+                        ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00SoloCraft |rmodule.");
+                    }
                 }
             }
         }

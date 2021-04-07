@@ -87,12 +87,14 @@ public:
     MoneyForKills() : PlayerScript("MoneyForKills") { }
 
     // Announce Module
-    void OnLogin(Player *player, bool /*onFirstLogin*/) {
+    void OnLogin(Player *player, bool firstLogin) {
         if (sConfigMgr->GetBoolDefault("MFK.Enable", true))
         {
-            if (sConfigMgr->GetBoolDefault("MFK.Announce", true))
-            {
-                ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00MoneyForKills |rmodule.");
+            if (firstLogin) {
+                if (sConfigMgr->GetBoolDefault("MFK.Announce", true))
+                {
+                    ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00MoneyForKills |rmodule.");
+                }
             }
         }
     }

@@ -84,12 +84,14 @@ public:
 
     CodeboxAnnounce() : PlayerScript("CodeboxAnnounce") {}
 
-    void OnLogin(Player* player, bool /*firstLogin*/)
+    void OnLogin(Player* player, bool firstLogin)
     {
-        // Announce Module
-        if (sConfigMgr->GetBoolDefault("CodeboxNPC.Announce", true))
-        {
-            ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00CodeboxNPC |rmodule.");
+        if (firstLogin) {
+            // Announce Module
+            if (sConfigMgr->GetBoolDefault("CodeboxNPC.Announce", true))
+            {
+                ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00CodeboxNPC |rmodule.");
+            }
         }
     }
 };

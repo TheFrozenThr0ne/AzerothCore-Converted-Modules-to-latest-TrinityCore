@@ -25,8 +25,10 @@ namespace {
             TC_LOG_INFO("scripts.solocraft.player.instance", "[Solocraft] solocraft_player_instance_handler Loaded");
         }
 
-        void OnLogin(Player *player, bool firstLogin) override {
-			ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00Solocraft |rmodule.");
+        void OnLogin(Player* player, bool firstLogin) override {
+			if (firstLogin) {
+				ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00Solocraft |rmodule.");
+			}
         }
 
         void OnMapChanged(Player *player) override {

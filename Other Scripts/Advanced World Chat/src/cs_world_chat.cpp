@@ -145,7 +145,9 @@ std::string GetNameLink(Player* player)
 }
 
 void OnLogin(Player *player, bool firstLogin) {
-	ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00Advanced World Chat |rmodule. Use .world");
+    if (firstLogin) {
+        ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00Advanced World Chat |rmodule. Use .world");
+    }
 }
 		 
 void _SendWorldChat(Player* player, string message)

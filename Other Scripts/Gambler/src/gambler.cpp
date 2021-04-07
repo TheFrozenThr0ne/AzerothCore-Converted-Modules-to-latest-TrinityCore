@@ -31,13 +31,15 @@ public:
 
     GamblerAnnounce() : PlayerScript("GamblerAnnounce") {}
 
-    void OnLogin(Player* player, bool /*firstLogin*/)
+    void OnLogin(Player* player, bool firstLogin)
     {
-        // Announce Module
-        if (sConfigMgr->GetBoolDefault("GamblerNPC.Announce", true))
-        {
-            ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00GamblerNPC |rmodule.");
-        }
+		if (firstLogin) {
+			// Announce Module
+			if (sConfigMgr->GetBoolDefault("GamblerNPC.Announce", true))
+			{
+				ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00GamblerNPC |rmodule.");
+			}
+		}
     }
 };
 

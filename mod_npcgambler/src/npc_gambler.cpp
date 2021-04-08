@@ -291,13 +291,13 @@ public:
                 Option3 << Bet3 << " " << MoneyTypeText;
                 Option4 << Bet4 << " " << MoneyTypeText;
                 Option5 << Bet5 << " " << MoneyTypeText;
-                AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, Option1.str(), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 2);
-                AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, Option2.str(), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 3);
-                AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, Option3.str(), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 4);
-                AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, Option4.str(), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 5);
-                AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, Option5.str(), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 6);
+                AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, Option1.str(), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 3);
+                AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, Option2.str(), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 4);
+                AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, Option3.str(), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 5);
+                AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, Option4.str(), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 6);
+                AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, Option5.str(), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 7);
                 AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, " Back", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 14);
-                SendGossipMenuFor(player, 1, me->GetGUID());
+                SendGossipMenuFor(player, 1, me);
                 break;
 
                 // Rules Menu
@@ -305,7 +305,7 @@ public:
                 messageInstruct << "The rules are simple " << player->GetName() << ".. If you roll higher than 50, you win double the bet amount. Otherwise, you lose twice the bet amount. A roll of 100 wins the jackpot. Good Luck!";
                 AddGossipItemFor(player, GOSSIP_ICON_CHAT, messageInstruct.str(), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 14);
                 AddGossipItemFor(player, GOSSIP_ICON_TALK, "Alright Skinny, I'm up for some gambling.", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
-                SendGossipMenuFor(player, 1, me->GetGUID());
+                SendGossipMenuFor(player, 1, me);
                 break;
 
                 // Bet 1
@@ -362,27 +362,27 @@ public:
                 // MoneyType: Copper
             case GOSSIP_ACTION_INFO_DEF + 10:
                 MoneyType = 1;
-                player->PlayerTalkClass->ClearMenus();
+                CloseGossipMenuFor(player);
                 OnGossipHello(player);
                 break;
 
                 // MoneyType: Silver
             case GOSSIP_ACTION_INFO_DEF + 11:
                 MoneyType = 2;
-                player->PlayerTalkClass->ClearMenus();
+                CloseGossipMenuFor(player);
                 OnGossipHello(player);
                 break;
 
                 // MoneyTaype: Gold
             case GOSSIP_ACTION_INFO_DEF + 12:
                 MoneyType = 3;
-                player->PlayerTalkClass->ClearMenus();
+                CloseGossipMenuFor(player);
                 OnGossipHello(player);
                 break;
 
                 // Main Menu
             case GOSSIP_ACTION_INFO_DEF + 14:
-                player->PlayerTalkClass->ClearMenus();
+                CloseGossipMenuFor(player);
                 OnGossipHello(player);
                 break;
             }

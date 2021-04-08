@@ -277,7 +277,7 @@ public:
             uint32 const sender = player->PlayerTalkClass->GetGossipOptionSender(gossipListId);
             uint32 const action = player->PlayerTalkClass->GetGossipOptionAction(gossipListId);
             Item* item;
-            player->PlayerTalkClass->ClearMenus();
+            ClearGossipMenuFor(player);
 
             switch (action)
             {

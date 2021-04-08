@@ -362,27 +362,27 @@ public:
                 // MoneyType: Copper
             case GOSSIP_ACTION_INFO_DEF + 10:
                 MoneyType = 1;
-                CloseGossipMenuFor(player);
+                ClearGossipMenuFor(player);
                 OnGossipHello(player);
                 break;
 
                 // MoneyType: Silver
             case GOSSIP_ACTION_INFO_DEF + 11:
                 MoneyType = 2;
-                CloseGossipMenuFor(player);
+                ClearGossipMenuFor(player);
                 OnGossipHello(player);
                 break;
 
                 // MoneyTaype: Gold
             case GOSSIP_ACTION_INFO_DEF + 12:
                 MoneyType = 3;
-                CloseGossipMenuFor(player);
+                ClearGossipMenuFor(player);
                 OnGossipHello(player);
                 break;
 
                 // Main Menu
             case GOSSIP_ACTION_INFO_DEF + 14:
-                CloseGossipMenuFor(player);
+                ClearGossipMenuFor(player);
                 OnGossipHello(player);
                 break;
             }

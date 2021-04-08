@@ -1,4 +1,4 @@
-# AzerothCore-Converted-Modules-to-latest-TrinityCore
-AzerothCore Converted Modules to latest TrinityCore 3.3.5a WotLK
+# Custom-Scripts-Converted-to-latest-TrinityCore
+Custom Scripts Converted to latest TrinityCore 3.3.5a WotLK
 
 Solo Instances

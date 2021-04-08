@@ -216,7 +216,7 @@ public:
             std::ostringstream messagePocket;
             std::ostringstream messageJackpot;
 
-            player->PlayerTalkClass->ClearMenus();
+            ClearGossipMenuFor(player);
 
             // Calculate player money and bet values
             Pocket = CalcMoney(player->GetMoney(), 0);
@@ -273,7 +273,7 @@ public:
             std::ostringstream messageInstruct;
 
             // Initialize
-            player->PlayerTalkClass->ClearMenus();
+            ClearGossipMenuFor(player);
 
             if (sender != GOSSIP_SENDER_MAIN)
             {
@@ -392,7 +392,7 @@ public:
         // Gossip Select Gold
         bool OnGossipSelectMoney(Player* player, Creature* creature, uint32 /* sender */, uint32 /* uiAction */, uint32 bet)
         {
-            player->PlayerTalkClass->ClearMenus();
+            ClearGossipMenuFor(player);
 
             // Dice Roll
             uint32 Roll = 0;

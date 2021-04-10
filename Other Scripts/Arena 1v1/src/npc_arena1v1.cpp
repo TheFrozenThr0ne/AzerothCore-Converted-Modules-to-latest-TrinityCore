@@ -16,11 +16,13 @@
 #include "ScriptedCreature.h"
 #include "CreatureAI.h"
 #include "Config.h"
+#include "ArenaTeam.h"
+#include "Language.h"
 //#include "DatabaseEnv.h"
 
 /*
 // NPC DETAILS - WORLD DATABASE
-uint64 NPC_Entry = 190001;
+uint64 NPC_Entry = 190000;
 uint32 NPC_DisplayID = 21249;
 std::string NPC_Name = "Arena 1v1";
 std::string NPC_SubName = "";

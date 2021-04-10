@@ -16,15 +16,17 @@ class PVPTitles : public PlayerScript
 public:
 	PVPTitles() : PlayerScript("PVPTitles") { }
 
-	void OnLogin(Player *player)
+	void OnLogin(Player *player, bool firstLogin)
 	{
-		if (sConfigMgr->GetBoolDefault("PvPTitles.Enable", true))
-		{
-			if (sConfigMgr->GetBoolDefault("PvPTitles.Announce", true))
-			{
-				ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00PvPTitles |rmodule.");
-			}
-		}
+        if (firstLogin) {
+            if (sConfigMgr->GetBoolDefault("PvPTitles.Enable", true))
+            {
+                if (sConfigMgr->GetBoolDefault("PvPTitles.Announce", true))
+                {
+                    ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00PvPTitles |rmodule.");
+                }
+            }
+        }
 	}
 
 	void OnPVPKill(Player *Killer, Player *Killed) override

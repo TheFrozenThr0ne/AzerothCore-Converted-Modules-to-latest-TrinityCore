@@ -209,7 +209,7 @@ public:
                 }
             }
 
-            SendGossipMenuFor(player, MORPH_GOSSIP_TEXT_CHOICE, me->GetGUID());
+            SendGossipMenuFor(player, MORPH_GOSSIP_TEXT_CHOICE, me);
 
             return true;
         }
@@ -322,10 +322,10 @@ public:
             if (sorry)
             {
                 AddGossipItemFor(player, MORPH_GOSSIP_MENU_SORRY, MORPH_GOSSIP_OPTION_SORRY, GOSSIP_SENDER_MAIN, MORPH_CLOSE_MENU);
-                SendGossipMenuFor(player, MORPH_GOSSIP_TEXT_SORRY, creature->GetGUID());
+                SendGossipMenuFor(player, MORPH_GOSSIP_TEXT_SORRY, me);
             }
             else
-                SendGossipMenuFor(player, MORPH_GOSSIP_TEXT_HELLO, creature->GetGUID());
+                SendGossipMenuFor(player, MORPH_GOSSIP_TEXT_HELLO, me);
 
             return true;
         }

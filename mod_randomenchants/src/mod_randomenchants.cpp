@@ -2,12 +2,6 @@
 # Modifications by StygianTheBest
 - v2017.07.29 - Added module announce, Updated strings
 
-####
-#### Converted to latest TrinityCore [3.3.5a] (https://github.com/TrinityCore/TrinityCore/blob/3.3.5/)
-#### By
-#### TheFrozenThr0ne
-#### https://GamersCentral.de (https://github.com/MaDmaX1337/)
-
 ---
 
 * Converted from the original LUA script to a module for Azerothcore(Sunwell) :D

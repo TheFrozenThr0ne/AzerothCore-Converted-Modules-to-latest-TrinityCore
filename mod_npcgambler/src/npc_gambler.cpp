@@ -2,12 +2,6 @@
 # Gambler NPC
 _This module was created for [StygianCore](https://rebrand.ly/stygiancoreproject). A World of Warcraft 3.3.5a Solo/LAN repack by StygianTheBest | [GitHub](https://rebrand.ly/stygiangithub) | [Website](https://rebrand.ly/stygianthebest))_
 ### Description
-### Description
-####
-#### Converted to latest TrinityCore [3.3.5a] (https://github.com/TrinityCore/TrinityCore/blob/3.3.5/)
-#### By
-#### TheFrozenThr0ne
-#### https://GamersCentral.de (https://github.com/MaDmaX1337/)
 ------------------------------------------------------------------------------------------------------------------
 Hey, the name's Skinny. You feelin' lucky? This NPC will allow players to gamble copper, silver, or gold as
 defined in the configuration. It's a nice way for players to make a little extra coin.

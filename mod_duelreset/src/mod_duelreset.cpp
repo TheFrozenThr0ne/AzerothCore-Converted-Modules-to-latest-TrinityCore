@@ -2,12 +2,6 @@
 # Modifications by StygianTheBest
 - v2017.08.01 - Added module announce, Updated strings
 
-
-# Converted to latest TrinityCore [3.3.5a] (https://github.com/TrinityCore/TrinityCore/blob/3.3.5/)
-- By
-- TheFrozenThr0ne
-- https://GamersCentral.de (https://github.com/MaDmaX1337/)
-
 ---
 
  *  Originally written  for TrinityCore by ShinDarth and GigaDev90 (www.trinitycore.org)

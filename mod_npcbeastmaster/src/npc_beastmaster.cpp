@@ -3,6 +3,11 @@
 # BeastMaster NPC #
 
 #### A module for AzerothCore by [StygianTheBest](https://github.com/StygianTheBest/AzerothCore-Content/tree/master/Modules)
+####
+#### Converted to latest TrinityCore [3.3.5a] (https://github.com/TrinityCore/TrinityCore/blob/3.3.5/)
+#### By
+#### TheFrozenThr0ne
+#### https://GamersCentral.de (https://github.com/MaDmaX1337/)
 ------------------------------------------------------------------------------------------------------------------
 
 
@@ -123,8 +128,8 @@ public:
     struct NPC_PassiveAI : public ScriptedAI
     {
         NPC_PassiveAI(Creature* creature) : ScriptedAI(creature) { }
-        void CreatePet(Player* player, Creature* creature, uint32 entry)
-        {
+        void CreatePet(Player* player, Creature* m_creature, uint32 entry) {
+
             // Get Pet Scale from config
             const float PetScale = sConfigMgr->GetFloatDefault("BeastMaster.PetScale", 1.0);
 
@@ -140,83 +145,52 @@ public:
                 }
             }
 
-            // Check if player already has a pet
-            if (player->GetPet())
-            {
-                me->Whisper("First you must abandon or stable your current pet!", LANG_UNIVERSAL, player);
-                CloseGossipMenuFor(player);
+            if (player->GetPet()) {
+                m_creature->Whisper("First you must drop your pet!", LANG_UNIVERSAL, player, false);;
+                player->PlayerTalkClass->SendCloseGossip();
                 return;
             }
 
-            // Summon Creature
-            Creature* creatureTarget = me->SummonCreature(entry, player->GetPositionX(), player->GetPositionY() + 2, player->GetPositionZ(), player->GetOrientation());
-            if (!creatureTarget) { return; }
+            Creature* creatureTarget = m_creature->SummonCreature(entry, player->GetPositionX(), player->GetPositionY() + 2, player->GetPositionZ(), player->GetOrientation(), TEMPSUMMON_CORPSE_TIMED_DESPAWN, 5min);
+            if (!creatureTarget) return;
 
-            // Create Tamed Creature
             Pet* pet = player->CreateTamedPetFrom(creatureTarget, 0);
-            if (!pet) { return; }
+            if (!pet)
+                return;
 
-            // Kill Original Creature
+            // kill original creature
             creatureTarget->setDeathState(JUST_DIED);
             creatureTarget->RemoveCorpse();
-            creatureTarget->SetHealth(0);   // For Nice GM View
+            creatureTarget->SetHealth(0);                       // just for nice GM-mode view
 
-            // Set Pet Happiness
             pet->SetPower(POWER_HAPPINESS, 1048000);
 
-            // Initialize Pet
-            pet->SetUInt64Value(UNIT_FIELD_CREATEDBY, player->GetGUID());
-            pet->SetUInt64Value(UNIT_FIELD_FACTIONTEMPLATE, player->GetFaction());
-            pet->SetUInt64Value(UNIT_FIELD_LEVEL, player->GetLevel());
+            //pet->SetUInt32Value(UNIT_FIELD_PETEXPERIENCE,0);
+            //pet->SetUInt32Value(UNIT_FIELD_PETNEXTLEVELEXP, uint32((Trinity::XP::xp_to_level(70))/4));
 
-            // Prepare Level-Up Visual
-            pet->SetUInt64Value(UNIT_FIELD_LEVEL, player->GetLevel() - 1);
+            // prepare visual effect for levelup
+            pet->SetUInt32Value(UNIT_FIELD_LEVEL, player->GetLevel() - 1);
             pet->GetMap()->AddToMap(pet->ToCreature());
 
-            // Visual Effect for Level-Up
-            pet->SetUInt64Value(UNIT_FIELD_LEVEL, player->GetLevel());
+            // visual effect for levelup
+            pet->SetUInt32Value(UNIT_FIELD_LEVEL, player->GetLevel());
 
-            // Initialize Pet Stats
-            pet->InitTalentForLevel();
+
             if (!pet->InitStatsForLevel(player->GetLevel()))
-            {
                 // sLog->outError("Pet Create fail: no init stats for entry %u", entry);
+
                 pet->UpdateAllStats();
-            }
 
-            // Scale Pet
-            pet->SetObjectScale(PetScale);
-
-            // Caster Pets?
+            // caster have pet now
             player->SetMinion(pet, true);
 
-            // Save Pet
-            pet->GetCharmInfo()->SetPetNumber(sObjectMgr->GeneratePetNumber(), true);
-            player->PetSpellInitialize();
-            pet->InitLevelupSpellsForLevel();
             pet->SavePetToDB(PET_SAVE_AS_CURRENT);
+            pet->InitTalentForLevel();
+            player->PetSpellInitialize();
 
-            // Learn Hunter Abilities
-            // Assume player has already learned the spells if they have Eagle Eye
-            if (!player->HasSpell(6197))
-            {
-                // player->learnSpell(13481);	// Tame Beast - Not working for non-hunter classes
-                player->LearnSpell(883, true);	// Call Pet
-                player->LearnSpell(982, true);	// Revive Pet
-                player->LearnSpell(2641, true);	// Dismiss Pet
-                player->LearnSpell(6991, true);	// Feed Pet
-                player->LearnSpell(33976, true);	// Mend Pet	
-                player->LearnSpell(1002, true);	// Eyes of the Beast
-                player->LearnSpell(1462, true);	// Beast Lore
-                player->LearnSpell(6197, true);	// Eagle Eye
-            }
-
-            // Farewell
-            std::ostringstream messageAdopt;
-            messageAdopt << "A fine choice " << player->GetName() << "! Your " << pet->GetName() << " shall know no law but that of the club and fang.";
-            me->Whisper(messageAdopt.str().c_str(), LANG_UNIVERSAL, player);
-            CloseGossipMenuFor(player);
-            me->HandleEmoteCommand(EMOTE_ONESHOT_POINT);
+            //end
+            player->PlayerTalkClass->SendCloseGossip();
+            m_creature->Whisper("Pet added!", LANG_UNIVERSAL, player, false);;
         }
 
         bool OnGossipHello(Player* player)

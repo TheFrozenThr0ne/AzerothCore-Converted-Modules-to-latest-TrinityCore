@@ -3,11 +3,6 @@
 # BeastMaster NPC #
 
 #### A module for AzerothCore by [StygianTheBest](https://github.com/StygianTheBest/AzerothCore-Content/tree/master/Modules)
-####
-#### Converted to latest TrinityCore [3.3.5a] (https://github.com/TrinityCore/TrinityCore/blob/3.3.5/)
-#### By
-#### TheFrozenThr0ne
-#### https://GamersCentral.de (https://github.com/MaDmaX1337/)
 ------------------------------------------------------------------------------------------------------------------
 
 
@@ -146,7 +141,7 @@ public:
             }
 
             if (player->GetPet()) {
-                m_creature->Whisper("First you must drop your pet!", LANG_UNIVERSAL, player, false);;
+                m_creature->Whisper("First you must abandon or stable your current pet!", LANG_UNIVERSAL, player, false);;
                 player->PlayerTalkClass->SendCloseGossip();
                 return;
             }
@@ -188,9 +183,27 @@ public:
             pet->InitTalentForLevel();
             player->PetSpellInitialize();
 
-            //end
-            player->PlayerTalkClass->SendCloseGossip();
-            m_creature->Whisper("Pet added!", LANG_UNIVERSAL, player, false);;
+            // Learn Hunter Abilities
+            // Assume player has already learned the spells if they have Eagle Eye
+            if (!player->HasSpell(6197))
+            {
+                // player->learnSpell(13481);	// Tame Beast - Not working for non-hunter classes
+                player->LearnSpell(883, true);	// Call Pet
+                player->LearnSpell(982, true);	// Revive Pet
+                player->LearnSpell(264, true);	// Dismiss Pet
+                player->LearnSpell(6991, true);	// Feed Pet
+                player->LearnSpell(33976, true);	// Mend Pet	
+                player->LearnSpell(1002, true);	// Eyes of the Beast
+                player->LearnSpell(1462, true);	// Beast Lore
+                player->LearnSpell(6197, true);	// Eagle Eye
+            }
+
+            // Farewell
+            std::ostringstream messageAdopt;
+            messageAdopt << "A fine choice " << player->GetName() << "! Your " << pet->GetName() << " shall know no law but that of the club and fang.";
+            m_creature->Whisper(messageAdopt.str().c_str(), LANG_UNIVERSAL, player);
+            CloseGossipMenuFor(player);
+            m_creature->HandleEmoteCommand(EMOTE_ONESHOT_POINT);
         }
 
         bool OnGossipHello(Player* player)

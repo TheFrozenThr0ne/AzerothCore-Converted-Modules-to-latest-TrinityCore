@@ -9,7 +9,6 @@ TODO* Fix sLog->outError
 #include "log.h"
 #include "Mail.h"
 #include "Item.h"
-#include "DatabaseEnv.h"
 #include "DBCStores.h"
 #include "Item.h"
 #include "ObjectMgr.h"
@@ -28,8 +27,10 @@ public:
 
     void OnLogin(Player* player, bool firstLogin)
     {
-        if (sConfigMgr->GetBoolDefault("RewardSystem.Announce", true)) {
-            ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00Reward Time Played |rmodule.");
+        if (firstLogin) {
+            if (sConfigMgr->GetBoolDefault("RewardSystem.Announce", true)) {
+                ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00Reward Time Played |rmodule.");
+            }
         }
     }
 

@@ -1,6 +1,11 @@
 /*
 # Custom Login Modifications #
 #### A module for AzerothCore by [StygianTheBest](https://github.com/StygianTheBest/AzerothCore-Content/tree/master/Modules)
+####
+#### Converted to latest TrinityCore [3.3.5a] (https://github.com/TrinityCore/TrinityCore/blob/3.3.5/)
+#### By
+#### TheFrozenThr0ne
+#### https://GamersCentral.de (https://github.com/MaDmaX1337/)
 ------------------------------------------------------------------------------------------------------------------
 ### Description ###
 ------------------------------------------------------------------------------------------------------------------
@@ -522,13 +527,13 @@ public:
                 if (player->GetTeamId() == TEAM_ALLIANCE)
                 {
                     std::ostringstream ss;
-                    ss << "|cffFFFFFF[|cff2897FF Alliance |cffFFFFFF]|cffFFFFFF" << player->GetName() << "|cffFFFFFF has left the game.";
+                    ss << "|cffFFFFFF[|cff2897FFAlliance|cffFFFFFF]: |cffFFFFFF" << player->GetName() << "|cffFFFFFF has left the game.";
                     sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
                 }
                 else
                 {
                     std::ostringstream ss;
-                    ss << "|cffFFFFFF[|cffFF0000 Horde |cffFFFFFF]|cffFFFFFF" << player->GetName() << "|cffFFFFFF has left the game.";
+                    ss << "|cffFFFFFF[|cffFF0000Horde|cffFFFFFF]: |cffFFFFFF" << player->GetName() << "|cffFFFFFF has left the game.";
                     sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
                 }
             }

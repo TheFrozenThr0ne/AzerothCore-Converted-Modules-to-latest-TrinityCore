@@ -52,10 +52,10 @@ or logoff the server.
 - This code and content is released under the [GNU AGPL v3](https://github.com/azerothcore/azerothcore-wotlk/blob/master/LICENSE-AGPL3).
 */
 
-
 #include "Player.h"
 #include "Config.h"
 #include "Chat.h"
+#include "SharedDefines.h"
 #include "World.h"
 
 class CustomLogin : public PlayerScript
@@ -64,324 +64,201 @@ class CustomLogin : public PlayerScript
 public:
     CustomLogin() : PlayerScript("CustomLogin") { }
 
-    void OnLogin(Player* player, bool firstLogin)
+    void OnLogin(Player* player, bool firstLogin) override
     {
-        if (firstLogin) {
-            // If enabled..
-            if (sConfigMgr->GetBoolDefault("CustomLogin.Enable", true))
-            {
-                // If enabled, give heirloom and other items
-                if (sConfigMgr->GetBoolDefault("CustomLogin.BoA", true))
+        if (sConfigMgr->GetBoolDefault("Login.BoA", true))
+        {
+            if (!firstLogin) {// Run script only on first login
+
+                uint32 shoulders = 0, chest = 0, trinkett = 0, weapon = 0, weapon2 = 0, weapon3 = 0, shield = 0, shoulders2 = 0, chest2 = 0, trinkett2 = 0, bag = 0;
+
+                bag = 41600;
+                switch (player->getClass())
                 {
-                    // Define Equipment
-                    uint32 shoulders = 0, chest = 0, trinkett = 0, weapon = 0, weapon2 = 0, weapon3 = 0, shield = 0, shoulders2 = 0, chest2 = 0, trinkett2 = 0, bag = 0;
-
-                    // Outfit the character with bags and heirlooms that match their class
-                    // NOTE: Some classes have more than one heirloom option per slot
-                    bag = 41600;
-                    switch (player->getClass())
-                    {
-                    case CLASS_WARRIOR:
-                        //Warrior
-                        shoulders = 93893;
-                        chest = 93892;
-                        trinkett = 122361;
-                        weapon = 122389;
-                        shield = 122391;
-                        shoulders2 = 122355;
-                        chest2 = 122381;
-                        weapon2 = 42943;
-                        break;
-                    case CLASS_PALADIN:
-                        //Paladin
-                        shoulders = 69890;
-                        chest = 69889;
-                        trinkett = 42991;
-                        weapon = 69893;
-                        shield = 122391;
-                        shoulders2 = 42951;
-                        chest2 = 48683;
-                        trinkett2 = 42992;
-                        weapon2 = 42948;
-                        break;
-                    case CLASS_HUNTER:
-                        //Hunter
-                        shoulders = 42950;
-                        chest = 48677;
-                        trinkett = 42991;
-                        weapon = 42943;
-                        weapon2 = 42946;
-                        weapon3 = 44093;
-                        break;
-                    case CLASS_ROGUE:
-                        //Rogue
-                        shoulders = 42952;
-                        chest = 48689;
-                        trinkett = 42991;
-                        weapon = 42944;
-                        weapon2 = 42944;
-                        break;
-                    case CLASS_PRIEST:
-                        //Priest
-                        shoulders = 42985;
-                        chest = 48691;
-                        trinkett = 42992;
-                        weapon = 42947;
-                        break;
-                    case CLASS_DEATH_KNIGHT:
-                        //Death Knight
-                        shoulders = 42949;
-                        chest = 48685;
-                        trinkett = 42991;
-                        weapon = 42945;
-                        break;
-                    case CLASS_SHAMAN:
-                        //Shaman
-                        shoulders = 122375;
-                        chest = 48683;
-                        trinkett = 122362;
-                        weapon = 122367;
-                        shield = 122392;
-                        shoulders2 = 122374;
-                        chest2 = 122379;
-                        weapon2 = 122385;
-                        break;
-                    case CLASS_MAGE:
-                        //Mage
-                        shoulders = 42985;
-                        chest = 48691;
-                        trinkett = 42992;
-                        weapon = 42947;
-                        break;
-                    case CLASS_WARLOCK:
-                        //Warlock
-                        shoulders = 42985;
-                        chest = 48691;
-                        trinkett = 42992;
-                        weapon = 42947;
-                        break;
-                    case CLASS_DRUID:
-                        //Druid
-                        shoulders = 42984;
-                        chest = 48687;
-                        trinkett = 42992;
-                        weapon = 42948;
-                        shoulders2 = 42952;
-                        chest2 = 48689;
-                        trinkett2 = 42991;
-                        weapon2 = 48718;
-                        break;
-                    case CLASS_MONK:
-                        //Monk
-                        shoulders = 42984;
-                        chest = 48687;
-                        trinkett = 42992;
-                        weapon = 42947;
-                        shoulders2 = 42952;
-                        chest2 = 48689;
-                        trinkett2 = 42991;
-                        weapon2 = 48716;
-                    default:
-                        return;
-                    }
-                    switch (player->getClass())
-                    {
-                    case CLASS_WARRIOR:
-                        player->AddItem(shoulders, 1);
-                        player->AddItem(chest, 1);
-                        player->AddItem(trinkett, 2);
-                        player->AddItem(weapon, 1);
-                        player->AddItem(shield, 1);
-                        player->AddItem(shoulders2, 1);
-                        player->AddItem(chest2, 1);
-                        player->AddItem(weapon2, 1);
-                        player->AddItem(bag, 4);
-                        break;
-                    case CLASS_PALADIN:
-                        player->AddItem(shoulders, 1);
-                        player->AddItem(chest, 1);
-                        player->AddItem(trinkett, 2);
-                        player->AddItem(weapon, 1);
-                        player->AddItem(shield, 1);
-                        player->AddItem(shoulders2, 1);
-                        player->AddItem(chest2, 1);
-                        player->AddItem(trinkett2, 2);
-                        player->AddItem(weapon2, 1);
-                        player->AddItem(bag, 4);
-                        break;
-                    case CLASS_HUNTER:
-                        player->AddItem(shoulders, 1);
-                        player->AddItem(trinkett, 2);
-                        player->AddItem(chest, 1);
-                        player->AddItem(weapon, 1);
-                        player->AddItem(weapon2, 1);
-                        player->AddItem(weapon3, 1);
-                        player->AddItem(bag, 4);
-                        break;
-                    case CLASS_ROGUE:
-                        player->AddItem(shoulders, 1);
-                        player->AddItem(trinkett, 2);
-                        player->AddItem(chest, 1);
-                        player->AddItem(weapon, 1);
-                        player->AddItem(weapon2, 1);
-                        player->AddItem(bag, 4);
-                        break;
-                    case CLASS_DRUID:
-                        player->AddItem(shoulders, 1);
-                        player->AddItem(trinkett, 2);
-                        player->AddItem(chest, 1);
-                        player->AddItem(weapon, 1);
-                        player->AddItem(shoulders2, 1);
-                        player->AddItem(chest2, 1);
-                        player->AddItem(trinkett2, 2);
-                        player->AddItem(weapon2, 1);
-                        player->AddItem(bag, 4);
-                        break;
-                    case CLASS_SHAMAN:
-                        player->AddItem(shoulders, 1);
-                        player->AddItem(chest, 1);
-                        player->AddItem(trinkett, 2);
-                        player->AddItem(weapon, 1);
-                        player->AddItem(shield, 1);
-                        player->AddItem(shoulders2, 1);
-                        player->AddItem(chest2, 1);
-                        player->AddItem(weapon2, 2);
-                        player->AddItem(bag, 4);
-                        break;
-                    case CLASS_MONK:
-                        player->AddItem(shoulders, 1);
-                        player->AddItem(trinkett, 2);
-                        player->AddItem(chest, 1);
-                        player->AddItem(weapon, 1);
-                        player->AddItem(shoulders2, 1);
-                        player->AddItem(trinkett2, 2);
-                        player->AddItem(chest2, 1);
-                        player->AddItem(weapon2, 1);
-                        player->AddItem(bag, 4);
-                        break;
-                    default:
-                        player->AddItem(shoulders, 1);
-                        player->AddItem(trinkett, 2);
-                        player->AddItem(chest, 1);
-                        player->AddItem(weapon, 1);
-                        player->AddItem(bag, 4);
-                    }
-
-                    // Inform the player they have new items
-                    std::ostringstream ss;
-                    ss << "|cffFF0000[CustomLogin]:|cffFF8000 The outfitter has placed Heirloom gear in your backpack.";
-                    ChatHandler(player->GetSession()).SendSysMessage(ss.str().c_str());
+                case CLASS_WARRIOR:
+                    //Warrior
+                    shoulders = 93893;
+                    chest = 93892;
+                    trinkett = 122361;
+                    weapon = 122389;
+                    shield = 122391;
+                    shoulders2 = 122355;
+                    chest2 = 122381;
+                    weapon2 = 42943;
+                    break;
+                case CLASS_PALADIN:
+                    //Paladin
+                    shoulders = 69890;
+                    chest = 69889;
+                    trinkett = 42991;
+                    weapon = 69893;
+                    shield = 122391;
+                    shoulders2 = 42951;
+                    chest2 = 48683;
+                    trinkett2 = 42992;
+                    weapon2 = 42948;
+                    break;
+                case CLASS_HUNTER:
+                    //Hunter
+                    shoulders = 42950;
+                    chest = 48677;
+                    trinkett = 42991;
+                    weapon = 42943;
+                    weapon2 = 42946;
+                    weapon3 = 44093;
+                    break;
+                case CLASS_ROGUE:
+                    //Rogue
+                    shoulders = 42952;
+                    chest = 48689;
+                    trinkett = 42991;
+                    weapon = 42944;
+                    weapon2 = 42944;
+                    break;
+                case CLASS_PRIEST:
+                    //Priest
+                    shoulders = 42985;
+                    chest = 48691;
+                    trinkett = 42992;
+                    weapon = 42947;
+                    break;
+                case CLASS_DEATH_KNIGHT:
+                    //Death Knight
+                    shoulders = 42949;
+                    chest = 48685;
+                    trinkett = 42991;
+                    weapon = 42945;
+                    break;
+                case CLASS_SHAMAN:
+                    //Shaman
+                    shoulders = 122375;
+                    chest = 48683;
+                    trinkett = 122362;
+                    weapon = 122367;
+                    shield = 122392;
+                    shoulders2 = 122374;
+                    chest2 = 122379;
+                    weapon2 = 122385;
+                    break;
+                case CLASS_MAGE:
+                    //Mage
+                    shoulders = 42985;
+                    chest = 48691;
+                    trinkett = 42992;
+                    weapon = 42947;
+                    break;
+                case CLASS_WARLOCK:
+                    //Warlock
+                    shoulders = 42985;
+                    chest = 48691;
+                    trinkett = 42992;
+                    weapon = 42947;
+                    break;
+                case CLASS_DRUID:
+                    //Druid
+                    shoulders = 42984;
+                    chest = 48687;
+                    trinkett = 42992;
+                    weapon = 42948;
+                    shoulders2 = 42952;
+                    chest2 = 48689;
+                    trinkett2 = 42991;
+                    weapon2 = 48718;
+                    break;
+                case CLASS_MONK:
+                    //Monk
+                    shoulders = 42984;
+                    chest = 48687;
+                    trinkett = 42992;
+                    weapon = 42947;
+                    shoulders2 = 42952;
+                    chest2 = 48689;
+                    trinkett2 = 42991;
+                    weapon2 = 48716;
+                default:
+                    return;
                 }
-
-                // If enabled, learn additional skills
-                if (sConfigMgr->GetBoolDefault("CustomLogin.Skills", true))
+                switch (player->getClass())
                 {
-                    switch (player->getClass())
-                    {
-
-                        /*
-                            // Skill Reference
-                            player->learnSpell(204);	// Defense
-                            player->learnSpell(264);	// Bows
-                            player->learnSpell(5011);	// Crossbow
-                            player->learnSpell(674);	// Dual Wield
-                            player->learnSpell(15590);	// Fists
-                            player->learnSpell(266);	// Guns
-                            player->learnSpell(196);	// Axes
-                            player->learnSpell(198);	// Maces
-                            player->learnSpell(201);	// Swords
-                            player->learnSpell(750);	// Plate Mail
-                            player->learnSpell(200);	// PoleArms
-                            player->learnSpell(9116);	// Shields
-                            player->learnSpell(197);	// 2H Axe
-                            player->learnSpell(199);	// 2H Mace
-                            player->learnSpell(202);	// 2H Sword
-                            player->learnSpell(227);	// Staves
-                            player->learnSpell(2567);	// Thrown
-                        */
-
-                    case CLASS_PALADIN:
-                        player->LearnSpell(196, true);	// Axes
-                        player->LearnSpell(750, true);	// Plate Mail
-                        player->LearnSpell(200, true);	// PoleArms
-                        player->LearnSpell(197, true);	// 2H Axe
-                        player->LearnSpell(199, true);	// 2H Mace
-                        break;
-
-                    case CLASS_SHAMAN:
-                        player->LearnSpell(15590, true);	// Fists
-                        player->LearnSpell(8737, true);	// Mail
-                        player->LearnSpell(196, true);	// Axes
-                        player->LearnSpell(197, true);	// 2H Axe
-                        player->LearnSpell(199, true);	// 2H Mace
-                        break;
-
-                    case CLASS_WARRIOR:
-                        player->LearnSpell(264, true);	// Bows
-                        player->LearnSpell(5011, true);	// Crossbow
-                        player->LearnSpell(674, true);	// Dual Wield
-                        player->LearnSpell(15590, true);	// Fists
-                        player->LearnSpell(266, true);	// Guns
-                        player->LearnSpell(750, true);	// Plate Mail
-                        player->LearnSpell(200, true);	// PoleArms
-                        player->LearnSpell(199, true);	// 2H Mace
-                        player->LearnSpell(227, true);	// Staves
-                        break;
-
-                    case CLASS_HUNTER:
-                        player->LearnSpell(674, true);	// Dual Wield
-                        player->LearnSpell(15590, true);	// Fists
-                        player->LearnSpell(266, true);	// Guns
-                        player->LearnSpell(8737, true);	// Mail
-                        player->LearnSpell(200, true);	// PoleArms
-                        player->LearnSpell(227, true);	// Staves
-                        player->LearnSpell(202, true);	// 2H Sword
-                        break;
-
-                    case CLASS_ROGUE:
-                        player->LearnSpell(264, true);	// Bows
-                        player->LearnSpell(5011, true);	// Crossbow
-                        player->LearnSpell(15590, true);	// Fists
-                        player->LearnSpell(266, true);	// Guns
-                        player->LearnSpell(196, true);	// Axes
-                        player->LearnSpell(198, true);	// Maces
-                        player->LearnSpell(201, true);	// Swords
-                        break;
-
-                    case CLASS_DRUID:
-                        player->LearnSpell(1180, true);	// Daggers
-                        player->LearnSpell(15590, true);	// Fists
-                        player->LearnSpell(198, true);	// Maces
-                        player->LearnSpell(200, true);	// PoleArms
-                        player->LearnSpell(227, true);	// Staves
-                        player->LearnSpell(199, true);	// 2H Mace
-                        break;
-
-                    case CLASS_MAGE:
-                        player->LearnSpell(201, true);	// Swords
-                        break;
-
-                    case CLASS_WARLOCK:
-                        player->LearnSpell(201, true);	// Swords
-                        break;
-
-                    case CLASS_PRIEST:
-                        player->LearnSpell(1180, true);	// Daggers
-                        break;
-
-                    case CLASS_DEATH_KNIGHT:
-                        player->LearnSpell(198, true);	// Maces
-                        player->LearnSpell(199, true);	// 2H Mace
-                        break;
-
-                    default:
-                        break;
-                    }
-
-                    // Inform the player they have new skills
-                    std::ostringstream ss;
-                    ss << "|cffFF0000[CustomLogin]:|cffFF8000 You have been granted additional weapon skills.";
-                    ChatHandler(player->GetSession()).SendSysMessage(ss.str().c_str());
+                case CLASS_WARRIOR:
+                    player->AddItem(shoulders, 1);
+                    player->AddItem(chest, 1);
+                    player->AddItem(trinkett, 2);
+                    player->AddItem(weapon, 1);
+                    player->AddItem(shield, 1);
+                    player->AddItem(shoulders2, 1);
+                    player->AddItem(chest2, 1);
+                    player->AddItem(weapon2, 1);
+                    player->AddItem(bag, 4);
+                    break;
+                case CLASS_PALADIN:
+                    player->AddItem(shoulders, 1);
+                    player->AddItem(chest, 1);
+                    player->AddItem(trinkett, 2);
+                    player->AddItem(weapon, 1);
+                    player->AddItem(shield, 1);
+                    player->AddItem(shoulders2, 1);
+                    player->AddItem(chest2, 1);
+                    player->AddItem(trinkett2, 2);
+                    player->AddItem(weapon2, 1);
+                    player->AddItem(bag, 4);
+                    break;
+                case CLASS_HUNTER:
+                    player->AddItem(shoulders, 1);
+                    player->AddItem(trinkett, 2);
+                    player->AddItem(chest, 1);
+                    player->AddItem(weapon, 1);
+                    player->AddItem(weapon2, 1);
+                    player->AddItem(weapon3, 1);
+                    player->AddItem(bag, 4);
+                    break;
+                case CLASS_ROGUE:
+                    player->AddItem(shoulders, 1);
+                    player->AddItem(trinkett, 2);
+                    player->AddItem(chest, 1);
+                    player->AddItem(weapon, 1);
+                    player->AddItem(weapon2, 1);
+                    player->AddItem(bag, 4);
+                    break;
+                case CLASS_DRUID:
+                    player->AddItem(shoulders, 1);
+                    player->AddItem(trinkett, 2);
+                    player->AddItem(chest, 1);
+                    player->AddItem(weapon, 1);
+                    player->AddItem(shoulders2, 1);
+                    player->AddItem(chest2, 1);
+                    player->AddItem(trinkett2, 2);
+                    player->AddItem(weapon2, 1);
+                    player->AddItem(bag, 4);
+                    break;
+                case CLASS_SHAMAN:
+                    player->AddItem(shoulders, 1);
+                    player->AddItem(chest, 1);
+                    player->AddItem(trinkett, 2);
+                    player->AddItem(weapon, 1);
+                    player->AddItem(shield, 1);
+                    player->AddItem(shoulders2, 1);
+                    player->AddItem(chest2, 1);
+                    player->AddItem(weapon2, 2);
+                    player->AddItem(bag, 4);
+                    break;
+                case CLASS_MONK:
+                    player->AddItem(shoulders, 1);
+                    player->AddItem(trinkett, 2);
+                    player->AddItem(chest, 1);
+                    player->AddItem(weapon, 1);
+                    player->AddItem(shoulders2, 1);
+                    player->AddItem(trinkett2, 2);
+                    player->AddItem(chest2, 1);
+                    player->AddItem(weapon2, 1);
+                    player->AddItem(bag, 4);
+                    break;
+                default:
+                    player->AddItem(shoulders, 1);
+                    player->AddItem(trinkett, 2);
+                    player->AddItem(chest, 1);
+                    player->AddItem(weapon, 1);
+                    player->AddItem(bag, 4);
                 }
 
                 // If enabled.. learn special skills abilities
@@ -391,7 +268,7 @@ public:
                     player->LearnSpell(1784, true);	// Stealth
                     player->LearnSpell(921, true);	// Pick Pocket
                     player->LearnSpell(1804, true);	// Lockpicking
-                    player->LearnSpell(11305, true);	// Sprint (3)
+                    player->LearnSpell(2983, true);	// Sprint (3)
                     player->LearnSpell(5384, true);	// Feign Death
                     // player->learnSpell(475);	// Remove Curse
 
@@ -467,6 +344,7 @@ public:
                 }
             }
         }
+
         // If enabled..
         if (sConfigMgr->GetBoolDefault("CustomLogin.Enable", true))
         {
@@ -514,7 +392,7 @@ public:
         }
     }
 
-    void OnLogout(Player *player)
+    void OnLogout(Player* player)
     {
         if (sConfigMgr->GetBoolDefault("CustomLogin.Enable", true))
         {

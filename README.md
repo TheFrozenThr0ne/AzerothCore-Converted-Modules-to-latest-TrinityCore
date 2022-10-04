@@ -6,3 +6,8 @@ If you are looking for some Patches by Trinitycore. Then check this link. https:
 
 Information about applying Patches:
 Patches are always better because you can revert them to apply new updates to your core. Use "git apply PatchFile.diff --rej" to apply patches. Use "git apply -R PatchFile.diff --rej" to revert them.
+
+
+
+# I switched to [AzerothCore](https://www.azerothcore.org) and i do not support updates anymore. Thank you!
+Achived
